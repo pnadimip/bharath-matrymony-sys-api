@@ -126,9 +126,13 @@ output application/json
         </error-handler>
     </flow>
     <flow name="post:\brideInfo:application\json:barath-matrymony-sys-api-config">
-        <logger level="INFO" doc:name="Logger" doc:id="3f232b8a-84fa-4af4-b7e4-30513d101324" message="Logging bride information Request #[payload]"/>
-		<set-variable value="#[payload.name]" doc:name="Set Variable" doc:id="55b0f166-e7f4-4054-99e1-727e8dd9af2c" variableName="name"/>
-		<os:store doc:id="6158a9ff-2c38-4729-aab3-8da3934ad25b" key="#[payload.id]" objectStore="Object_store"/>
+		<flow-ref doc:name="Flow Reference" doc:id="232ae58b-974d-4b39-a58f-81d282657d98" name="matrymony-private-flow"/>
+    </flow>
+    <flow name="matrymony-private-flow" doc:id="1567f73c-d64b-49ca-9497-77a5896d3c47">
+    
+        <logger level="INFO" doc:name="Logger" doc:id="1d1f70d6-8335-4dcf-b5d4-f8b3db8a766d" message="Logging bride information Request #[payload]"/>
+		<set-variable value="#[payload.name]" doc:name="Set Variable" doc:id="ea85e9e5-7b39-4fd3-985a-0122972fa8e7" variableName="name"/>
+		<os:store doc:id="a30df66e-de26-4dd7-91cc-be8e7200ad87" key="#[payload.id]" objectStore="Object_store"/>
 		<ee:transform>
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
@@ -139,6 +143,8 @@ output application/json
 }]]></ee:set-payload>
             </ee:message>
         </ee:transform>
-		<logger level="INFO" doc:name="Logger" doc:id="bd2b591e-ebdb-411b-85a9-a5c6a62fc814" message="Respose of the registration request of the Groom #[payload]"/>
+		<logger level="INFO" doc:name="Logger" doc:id="689d5986-25cb-4be7-82c3-6164fc22d1e0" message="Respose of the registration request of the Groom #[payload]"/>
+    
+    
     </flow>
 </mule>
